@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block styling %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/stocks_style.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="stocks-container">
+  <div class="stocks-list">
+    <h1>List of Stocks</h1>
+
+    <table>
+      <!-- Table Header Row -->
+      <thead>
+        <tr>
+          <th>Stock Symbol</th>
+          <th>Number of Shares</th>
+          <th>Purchase Price</th>
+          <th>Purchase Date</th>  <!-- NEW! -->
+          <th>Current Share Price</th>
+          <th>Stock Position Value</th>
+        </tr>
+      </thead>
+
+      <!-- Table Elements (Rows) -->
+      {% for stock in stocks %}
+        <tr>
+          <td><a href="{{ url_for('stocks.stock_details', id=stock.id) }}">{{ stock.stock_symbol }}</a></td>
+          <td>{{ stock.number_of_shares }}</td>
+          <td>${{ stock.purchase_price }}</td>
+          <td>{{ stock.purchase_date.strftime("%Y-%m-%d") }}</td>  <!-- NEW! -->
+          <td>${{ stock.current_price }}</td>
+          <td>${{ stock.position_value }}</td>
+        </tr>
+      {% endfor %}
+            <!-- Footer Row -->
+      <tfoot>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><b>TOTAL VALUE</b></td>
+          <td><b>${{ value }}</b></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
+{% endblock %}

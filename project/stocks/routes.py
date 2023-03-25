@@ -89,7 +89,6 @@ def list_stocks():
         stock.get_stock_data()
         database.session.add(stock)
         current_account_value += stock.position_value
-    current_app.logger.info(f"{stocks_owned_by_user[0]}")
     database.session.commit()
     return render_template('stocks/stocks.html', stocks=stocks_owned_by_user, value=round(current_account_value, 2))
 
